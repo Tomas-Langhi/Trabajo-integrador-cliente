@@ -10,12 +10,11 @@ package proyecto.integrador.cliente;
  * @author Tomas Langhi
  */
 public class ProyectoIntegradorCliente {
-
-    /**
+    
+       /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
     }
-    
 }
