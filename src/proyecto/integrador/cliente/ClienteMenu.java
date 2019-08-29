@@ -6,9 +6,7 @@
 package proyecto.integrador.cliente;
 
 import java.awt.*;
-import java.awt.image.*;
 import java.io.File;
-import java.net.URL;
 import javax.swing.*;
 
 /**
@@ -22,6 +20,13 @@ public class ClienteMenu extends javax.swing.JFrame {
      */
     public ClienteMenu() {
         initComponents();
+        
+        
+  
+        ImageIcon imagen = new ImageIcon("src/proyecto/integrador/cliente/Perrito_meme.jpg");
+        
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(label_Foto.getWidth(), label_Foto.getHeight(),Image.SCALE_DEFAULT));
+        label_Foto.setIcon(icono);
            
         getContentPane().setBackground(new java.awt.Color( 0,0 ,0));
     }
@@ -254,7 +259,6 @@ public class ClienteMenu extends javax.swing.JFrame {
         jTabbedPane2.addTab("                  Partidos                  ", jPanel1);
 
         label_Foto.setForeground(new java.awt.Color(255, 255, 255));
-        label_Foto.setText("Agrega una imagen.");
         label_Foto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -413,7 +417,6 @@ public class ClienteMenu extends javax.swing.JFrame {
         ImageIcon i = new ImageIcon(img2);
         label_Foto.setIcon(i);
         
-        label_Foto.setText("");
          
     }//GEN-LAST:event_Btn_CambiarFotoActionPerformed
                                             
@@ -434,15 +437,11 @@ public class ClienteMenu extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClienteMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClienteMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClienteMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ClienteMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
