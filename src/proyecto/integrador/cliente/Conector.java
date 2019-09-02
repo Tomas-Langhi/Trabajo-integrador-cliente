@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto.integrador.java;
+package proyecto.integrador.cliente;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Conector {
      
-    String url = "base-de-prueva.db";
+    String url = "../base-de-prueva.db";
     Connection connect;
+    Statement enun;
+    
      
     public void connect(){
         try {
@@ -46,4 +48,14 @@ public class Conector {
 
     }
     
+    public ResultSet mostrarDatos(){
+        ResultSet resultados = null;
+        try {
+            enun = connect.createStatement();
+            resultados = enun.executeQuery("SELECT * FROM alumnos;");
+        } catch (SQLException ex) {
+            Logger.getLogger(Conector.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        return resultados;
+    }    
 }

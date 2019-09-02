@@ -9,7 +9,11 @@ import java.awt.*;
 import java.awt.image.*;
 import java.io.File;
 import java.net.URL;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,6 +21,7 @@ import javax.swing.*;
  */
 
 public class ClienteMenu extends javax.swing.JFrame {
+
     /**
      * Creates new form ClienteMenu
      */
@@ -40,7 +45,8 @@ public class ClienteMenu extends javax.swing.JFrame {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTable1 = new javax.swing.JTable();
+        cargar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -83,24 +89,46 @@ public class ClienteMenu extends javax.swing.JFrame {
         jTabbedPane2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTabbedPane2.setName(""); // NOI18N
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(0, 0, 0));
-        jTextArea1.setColumns(20);
-        jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Tengo letra blanca wacho");
-        jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        jScrollPane2.setViewportView(jTextArea1);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        cargar.setText("cargar");
+        cargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cargar)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cargar)
+                .addContainerGap())
         );
 
         jTabbedPane2.addTab("                  Jugadores                 ", jPanel2);
@@ -416,8 +444,38 @@ public class ClienteMenu extends javax.swing.JFrame {
         label_Foto.setText("");
          
     }//GEN-LAST:event_Btn_CambiarFotoActionPerformed
-                                            
+    
+String cabecera [] = {"Nombre", "Apellido"};
+String datos [][] = {};
+DefaultTableModel modelo = new DefaultTableModel(datos, cabecera);
+
+    private void cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarActionPerformed
+        // TODO add your handling code here:
         
+        jTable1.setModel(modelo);
+        try { 
+            Conector con = new Conector();
+            con.connect();
+            ResultSet texto;
+            texto = con.mostrarDatos();
+            DefaultTableModel model=(DefaultTableModel) jTable1.getModel();
+            int filas=jTable1.getRowCount();
+            for (int i = 0;filas>i; i++) {
+                model.removeRow(0);
+            }
+            while (texto.next()){
+                Object dato [] = {texto.getString(1), texto.getString(2)};
+                modelo.addRow(dato); 
+            }
+            con.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_cargarActionPerformed
+                                            
+    
     /**
      * @param args the command line arguments
      */
@@ -447,18 +505,20 @@ public class ClienteMenu extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new ClienteMenu().setVisible(true);
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_BorrarJugador;
     private javax.swing.JButton Btn_BorrarPartido;
     private javax.swing.JButton Btn_CambiarFoto;
     private javax.swing.JButton Btn_CargarJugador;
     private javax.swing.JButton Btn_CargarPartido;
+    private javax.swing.JButton cargar;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -490,7 +550,9 @@ public class ClienteMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel label_Foto;
     // End of variables declaration//GEN-END:variables
+}
+    
