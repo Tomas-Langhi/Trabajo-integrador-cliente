@@ -575,6 +575,8 @@ public class frameClienteMenu extends javax.swing.JFrame {
 
     private void Btn_BorrarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_BorrarJugadorActionPerformed
         // TODO add your handling code here:
+        frameBorrarJugador bj = new frameBorrarJugador();
+        bj.setVisible(true);
     }//GEN-LAST:event_Btn_BorrarJugadorActionPerformed
 
     private void Btn_BorrarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_BorrarPartidoActionPerformed
